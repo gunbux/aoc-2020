@@ -1,2 +1,2 @@
 # aoc-2020
-Advent of Code 2020
+My attempt at Advent of Code 2020
