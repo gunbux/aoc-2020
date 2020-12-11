@@ -3,9 +3,10 @@ with open('7.txt') as input:
     hasGold = []
     noGold = []
     bbl = {}
+    c = {}
 
     def containsGold(bag):
-        print(f'checking {bag} for gold')
+        ##print(f'checking {bag} for gold')
         if bbl[bag] == None or bag == None:
             noGold.append(bag)
             return False
@@ -25,6 +26,28 @@ with open('7.txt') as input:
                     return True
                 else:
                     noGold.append(i)
+
+    def countbags(bag):
+        bc = 0
+        l = bbl[bag]
+        ##print(f'counting bags: {bag}')
+        ##print(f'dp list is {c}')
+        if l == None:
+            if bag not in c:
+                c[bag] = 0
+            return 0
+        if bag in c:
+            return c[bag]
+        else:
+            for i in l:
+                ##print(f'i is {i} and l is {l}')
+                bc += l[i]
+                y = l[i]
+                bc += y*countbags(i)
+            if bag not in c:
+                c[bag] = bc
+            return bc
+
     for g in input:
         h = g.rstrip()[:-1].split(' contain ')
         a = h[0].replace(' bags','')
@@ -44,8 +67,7 @@ with open('7.txt') as input:
         ##print(f'searching for bag {v}')
         containsGold(v)
 
-    print(hasGold)
-    print(len(hasGold))
+    print(countbags('shiny gold'))
 
 # Potato Code
 #    class bag(object):
